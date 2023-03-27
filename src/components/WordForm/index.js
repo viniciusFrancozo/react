@@ -1,1 +1,1 @@
-export {default} from './WordForm'
+export {default} from './wordForm'

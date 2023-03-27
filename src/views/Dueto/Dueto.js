@@ -22,10 +22,10 @@ const style = {
 };
 
 const Termo = () => {
-    const gameTimes = [...Array(1).keys()]
+    const gameTimes = [...Array(2).keys()]
     
     const [victoryCondition, setVictoryCondition] = useState([...Array(gameTimes.length).keys()].fill(false));
-    const [words, setWords] = useState([])
+    const [words, setWord] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [attempts, setAttempts] = useState(1)
     const [guessResult, setGuessResult] = useState()
@@ -51,7 +51,7 @@ const Termo = () => {
     const getWords = async () => {
         for (let _ in gameTimes){
             const response = await api.get('/word', {params: {length: 5}})
-            setWords(words => [...words, response?.data])
+            setWord(words => [...words, response?.data])
             console.log(response?.data)
         }
     }
@@ -95,9 +95,11 @@ const Termo = () => {
     }, [inputValue])
 
     useEffect(() => {
+        console.log(attempts)
         if ((attempts == 7 && victoryCondition.every((value) => value === true)) || victoryCondition.every((value) => value === true)){
             setGameState(true)
             handleOpen()
+            console.log(attempts,'tet')
         }else if (attempts == 7){
             setGameState(false)
             handleOpen()
@@ -107,9 +109,9 @@ const Termo = () => {
     return(
         <Container>
             <Navbar/>
-            <Container sx={{marginTop: '10px'}}>
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
                 {gameTimes.map((element) => (
-                    <Box className={`word-box-${element+1}`} >
+                    <Box className={`word-box-${element+1}`}>
                         <WordPanel/>
                     </Box>
                 ))}
@@ -136,7 +138,7 @@ const Termo = () => {
                         {gameState === true ? (<p>Parabéns</p>) : (<p>Que pena...</p>)}
                     </Typography>
                     <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                        {gameState === true ? (<p>Você conseguiu, você acertou a palavra!!</p>) : (<p>Você não conseguiu acertar :/</p>)}
+                        {gameState === true ? (<p>Você conseguiu, você acertou as palavras!!</p>) : (<p>Você não conseguiu acertar :/</p>)}
                     </Typography>
                   </Box>
                 </Fade>

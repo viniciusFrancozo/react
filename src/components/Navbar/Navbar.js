@@ -7,17 +7,14 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { Link } from '@mui/material';
 
-const pages = ['Termo', 'Dueto', 'Quarteto'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Termo', 'Dueto', 'Trio'];
 
-const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+const NavBar = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -70,13 +67,14 @@ const Navbar = () => {
           
           <Box sx={{ justifyContent: 'center' ,flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+              <Link
                 key={page}
+                href={`/${page.toLowerCase()}`}
                 onClick={handleCloseNavMenu}
                 sx={{ margin: 5, my: 2, color: 'white', display: 'block' }}
               >
                 {page}
-              </Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>
@@ -84,4 +82,4 @@ const Navbar = () => {
     </AppBar>
   );
 }
-export default Navbar;
+export default NavBar;
